@@ -16,3 +16,10 @@ Template.workoutList.helpers({
     });
   }
 });
+
+Template.workoutList.events({
+  'click button.show-more': function (evt, tpl) {
+    var newLimit = Session.get('limit') + 10;
+    Session.set('limit', newLimit);
+  }
+});
