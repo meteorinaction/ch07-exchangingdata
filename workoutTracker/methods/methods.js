@@ -1,8 +1,8 @@
 Meteor.methods({
   'CreateWorkout': function (data) {
-    check(data, {
+    /*check(data, {
       distance: Number
-    });
+  });*/
 
     var distance = data.distance;
     if (distance <= 0 || distance > 45) {
