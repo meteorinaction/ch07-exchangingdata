@@ -9,6 +9,7 @@
 </body>
 
 <template name="workoutList">
+  {{#if Template.subscriptionsReady}}
   <table>
     <thead>
       <tr>
@@ -27,4 +28,5 @@
       {{/each}}
     </tbody>
   </table>
+  {{else}} loading workouts... {{/if}}
 </template>
