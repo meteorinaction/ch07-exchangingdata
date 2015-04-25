@@ -21,9 +21,13 @@ Meteor.publish('distanceByMonth', function () {
   var subscription = this;
   var initiated = false;
   var distances = {};
-
+  var userId = this.userId;
   var db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   var pipeline = [{
+    $match: {
+      userId: userId
+    }
+  }, {
     $group: {
       _id: {
         $month: '$workoutAt'
@@ -40,6 +44,7 @@ Meteor.publish('distanceByMonth', function () {
       function (err, result) {
         console.log('result', result);
         _.each(result, function (r) {
+          distances[r._id] = r.distance;
           subscription.added('distanceByMonth', r._id, {
             distance: r.distance
           });
@@ -47,8 +52,11 @@ Meteor.publish('distanceByMonth', function () {
       }
     )
   )
+
   var workoutHandle = WorkoutsCollection
-    .find()
+    .find({
+      userId: userId
+    })
     .observeChanges({
       added: function (id, fields) {
         if (!initiated) return;
@@ -65,9 +73,9 @@ Meteor.publish('distanceByMonth', function () {
       }
     });
 
+  initiated = true;
   subscription.onStop(function () {
     workoutHandle.stop();
   });
-
   subscription.ready();
 });
