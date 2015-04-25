@@ -1,5 +1,10 @@
-Meteor.subscribe('workouts', {
-  limit: 10
+Session.setDefault('limit', 10);
+
+// Subscriptions
+Tracker.autorun(function (computation) {
+  Meteor.subscribe('workouts', {
+    limit: Session.get('limit')
+  });
 });
 
 Template.workoutList.helpers({
