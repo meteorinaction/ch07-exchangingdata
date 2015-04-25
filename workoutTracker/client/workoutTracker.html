@@ -1,0 +1,30 @@
+<head>
+  <title>workoutTracker</title>
+</head>
+
+<body>
+  <h1>Track all your workouts with Meteor!</h1>
+
+  {{> workoutList}}
+</body>
+
+<template name="workoutList">
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Distance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each workouts}}
+      <tr>
+        <td>{{workoutAt}}</td>
+        <td>{{type}}</td>
+        <td>{{distance}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</template>
