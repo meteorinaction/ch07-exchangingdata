@@ -1,7 +1,5 @@
-Meteor.subscribe('workouts');
-
-Template.workoutList.onCreated(function () {
-  this.subscribe('workouts');
+Meteor.subscribe('workouts', {
+  limit: 10
 });
 
 Template.workoutList.helpers({
