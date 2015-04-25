@@ -1,7 +1,6 @@
 Session.setDefault('limit', 10);
 Session.setDefault('sorting', -1);
 DistanceByMonth = new Mongo.Collection('distanceByMonth');
-Meteor.subscribe('distanceByMonth');
 
 // Subscriptions
 Tracker.autorun(function (computation) {
@@ -9,6 +8,7 @@ Tracker.autorun(function (computation) {
     limit: Session.get('limit'),
     sorting: Session.get('sorting')
   });
+  Meteor.subscribe('distanceByMonth');
 });
 
 Template.workoutList.helpers({
