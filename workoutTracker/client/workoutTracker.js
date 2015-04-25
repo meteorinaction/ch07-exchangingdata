@@ -1,5 +1,6 @@
 Session.setDefault('limit', 10);
 Session.setDefault('sorting', -1);
+DistanceByMonth = new Mongo.Collection('distanceByMonth');
 
 // Subscriptions
 Tracker.autorun(function (computation) {
