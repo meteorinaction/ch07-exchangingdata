@@ -6,6 +6,8 @@
   <h1>Track all your workouts with Meteor!</h1>
   {{> loginButtons }}
   <hr /> {{> workoutList}}
+  <h2>Monthly Aggregation</h2>
+  {{> distanceByMonth }}
 </body>
 
 <template name="workoutList">
@@ -31,4 +33,23 @@
   </table>
   {{else}} loading workouts... {{/if}}
   <button class="show-more">Load more...</button>
+</template>
+
+<template name="distanceByMonth">
+  <table>
+    <thead>
+      <tr>
+        <th>Month</th>
+        <th>Total Distance</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each month}}
+      <tr>
+        <td>{{translateMonth}}</td>
+        <td>{{distance}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </template>
