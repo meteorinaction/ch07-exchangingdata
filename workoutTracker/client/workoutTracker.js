@@ -70,3 +70,17 @@ Template.distanceByMonth.helpers({
     return monthLabels[this._id];
   }
 });
+
+Template.addWorkout.events({
+  'submit form': function (evt, tpl) {
+    evt.preventDefault();
+
+    var distance = parseInt(tpl.$('input[name="distance"]').val());
+
+    Meteor.call('CreateWorkout', {
+      distance: distance
+    }, function (error, result) {
+      if (error) return alert('Error: ' + error.error);
+    });
+  }
+});

@@ -5,9 +5,14 @@
 <body>
   <h1>Track all your workouts with Meteor!</h1>
   {{> loginButtons }}
-  <hr /> {{> workoutList}}
+  <hr /> {{#if currentUser}}
+  <h2>Add a workout</h2>
+  {{> addWorkout }} {{/if}}
   <h2>Monthly Aggregation</h2>
   {{> distanceByMonth }}
+  <h2>Detailed Workout listing</h2>
+  {{> workoutList}}
+
 </body>
 
 <template name="workoutList">
@@ -52,4 +57,11 @@
       {{/each}}
     </tbody>
   </table>
+</template>
+
+<template name="addWorkout">
+  <form>
+    <input name="distance" placeholder="Distance">
+    <button type="submit">Save</button>
+  </form>
 </template>
