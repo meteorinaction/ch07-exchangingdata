@@ -7,14 +7,19 @@ getRandomDate = function () {
 Meteor.startup(function () {
   WorkoutsCollection.remove({});
 
-  var workouts = 100;
-  for (var i = 0; i < workouts; i++) {
-    // random distance between 1 and 10
-    var distance = parseInt(Math.random() * 10) + 1;
-    WorkoutsCollection.insert({
-      type: 'jogging',
-      workoutAt: getRandomDate(),
-      distance: distance
-    })
+  if (Meteor.users.findOne()) {
+    var userId = Meteor.users.findOne()._id;
+
+    var workouts = 100;
+    for (var i = 0; i < workouts; i++) {
+      // random distance between 1 and 10
+      var distance = parseInt(Math.random() * 10) + 1;
+      WorkoutsCollection.insert({
+        type: 'jogging',
+        workoutAt: getRandomDate(),
+        distance: distance,
+        userId: userId
+      })
+    }
   }
 });
