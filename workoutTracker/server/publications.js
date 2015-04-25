@@ -63,5 +63,9 @@ Meteor.publish('distanceByMonth', function () {
       }
     });
 
+  subscription.onStop(function () {
+    workoutHandle.stop();
+  });
+
   subscription.ready();
 });
