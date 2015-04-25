@@ -4,7 +4,9 @@ Meteor.publish('workouts', function (options) {
     sorting: Number
   });
 
-  var qry = {};
+  var qry = {
+    userId: this.userId
+  };
   var qryOptions = {
     limit: options.limit,
     sort: {
