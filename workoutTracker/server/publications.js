@@ -17,6 +17,9 @@ Meteor.publish('workouts', function (options) {
 
 Meteor.publish('distanceByMonth', function () {
   var subscription = this;
+  var initiated = false;
+  var distances = {};
+
   var db = MongoInternals.defaultRemoteCollectionDriver().mongo.db;
   var pipeline = [{
     $group: {
@@ -42,6 +45,23 @@ Meteor.publish('distanceByMonth', function () {
       }
     )
   )
+  var workoutHandle = WorkoutsCollection
+    .find()
+    .observeChanges({
+      added: function (id, fields) {
+        if (!initiated) return;
+
+        idByMonth = new Date(fields.workoutAt).getMonth() + 1;
+
+        distances[idByMonth] += fields.distance;
+
+        subscription.changed('distanceByMonth',
+          idByMonth, {
+            distance: distances[idByMonth]
+          }
+        )
+      }
+    });
 
   subscription.ready();
 });
