@@ -1,3 +1,5 @@
+Meteor.subscribe("workouts");
+
 Template.workoutList.helpers({
   workouts: function () {
     return WorkoutsCollection.find({}, {
